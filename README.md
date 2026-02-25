@@ -29,3 +29,39 @@ Create values-dev.yaml and values-prod.yaml
 
 Step 4 — Deploy Prometheus & Grafana
 -------------------------------------
+# Dev environment
+Error
+helm uninstall monitoring-dev -n default
+OK
+...
+# Prod environment
+Error
+helm uninstall monitoring-prod -n default
+OK
+...
+
+
+ Step 5 — Deploy Loki + Fluent Bit (Logging)
+ ---------------------------------------------
+ $ helm upgrade --install loki-dev grafana/loki-stack -n monitoring-dev
+NAME: loki-dev
+LAST DEPLOYED: Mon Feb 23 20:45:43 2026
+NAMESPACE: monitoring-dev
+STATUS: deployed
+REVISION: 1
+NOTES:
+The Loki stack has been deployed to your cluster. Loki can now be added as a datasource in Grafana.
+
+ $ helm upgrade --install loki-prod grafana/loki-stack -n monitoring-prod
+ NAME: loki-prod
+LAST DEPLOYED: Mon Feb 23 20:46:21 2026
+NAMESPACE: monitoring-prod
+STATUS: deployed
+REVISION: 1
+NOTES:
+The Loki stack has been deployed to your cluster. Loki can now be added as a datasource in Grafana.
+
+
+ Step 6 — Port Forward Dashboards
+ ---------------------------------
+ kubectl port-forward svc/monitoring-grafana -n monitoring-dev 3000:80
