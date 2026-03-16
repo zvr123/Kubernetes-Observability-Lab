@@ -69,6 +69,21 @@ NOTES:
 The Loki stack has been deployed to your cluster. Loki can now be added as a datasource in Grafana.
 
 
- Step 6 — Port Forward Dashboards
+## Step 6 — Port Forward Dashboards
  ---------------------------------
- kubectl port-forward svc/monitoring-grafana -n monitoring-dev 3000:80
+###Graphana:
+ ----------
+ kubectl port-forward svc/monitoring-dev-grafana -n monitoring-dev 3000:80
+ Forwarding from 127.0.0.1:3000 -> 3000
+Forwarding from [::1]:3000 -> 3000
+...
+kubectl port-forward svc/monitoring-prod-grafana -n monitoring-prod 3000:80
+Forwarding from 127.0.0.1:3000 -> 3000
+Forwarding from [::1]:3000 -> 3000
+
+
+###Prometheus:
+
+
+###Loki:
+
