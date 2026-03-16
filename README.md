@@ -30,15 +30,22 @@ Create values-dev.yaml and values-prod.yaml
 Step 4 — Deploy Prometheus & Grafana
 -------------------------------------
 # Dev environment
-Error
-helm uninstall monitoring-dev -n default
-OK
-...
+helm upgrade --install monitoring-dev prometheus-community/kube-prometheus-stack -n monitoring-dev --create-namespace -f values-dev.yaml
+
+Get your grafana admin user password by running:
+
+  kubectl get secret --namespace monitoring-dev -l app.kubernetes.io/component=admin-secret -o jsonpath="{.items[0].data.admin-password}" | base64 --decode ; echo
+devadmin
+
+
 # Prod environment
-Error
-helm uninstall monitoring-prod -n default
-OK
-...
+helm upgrade --install monitoring-prod prometheus-community/kube-prometheus-stack -n monitoring-prod --create-namespace -f values-prod.yaml
+
+Get your grafana admin user password by running:
+
+  kubectl get secret --namespace monitoring-prod -l app.kubernetes.io/component=admin-secret -o jsonpath="{.items[0].data.admin-password}" | base64 --decode ; echo
+prodadmin
+
 
 
  Step 5 — Deploy Loki + Fluent Bit (Logging)
